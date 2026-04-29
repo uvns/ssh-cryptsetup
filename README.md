@@ -6,7 +6,7 @@ Personal ArchLinux package combining dropbear and cryptsetup in initramfs for un
 The code was reworked from legacy dropbear_initrd_encrypt AUR package.
 
 
-## Installation on Arch Linux
+## Install on Arch Linux
 ```shell
 yay -S ssh-cryptsetup
 ```

@@ -67,15 +67,20 @@ For example:
     sshcs_opt_use_shell=1
 
 
-## Building notes
-1. Modify the sources (features in `src`, and/or package building files)
-2. If `src` was modified
-   * bump `pkgver`, or `pkgrel`, in `PKGBUILD`
-   * archive the `src` folder in `$pkgname-$pkgver-$pkgrel.tar.xz` file; e.g.: `tar -cJf initrd-ssh-cryptsetup-$(grep "^pkgver=" PKGBUILD | cut -d'=' -f2)-$(grep "^pkgrel=" PKGBUILD | cut -d'=' -f2).tar.xz src`
-   * upload the archive on the online repository (pointed by `PKGBUILD`)
-3. Update ChangeLog
-4. Update `PKGBUILD`
-   * bump `pkgrel` if only building files were modified
-   * refresh `sha256sums` with `updpkgsums` if necessary
-     - or manually, based on `sha256sum initrd-ssh-cryptsetup-*.tar.xz initrd-ssh-cryptsetup.install` output
-5. Delete generated archive file if any
+## Edit /etc/default/grub
+```shell
+GRUB_CMDLINE_LINUX="......ip=:::::eth0:dhcp rd.luks=0"
+```
+## Add ssh-cryptsetup hook before filesystem hook
+```shell
+HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block ssh-cryptsetup sd-encrypt lvm2 filesystems fsck)
+```
+## Add UUID to crypttab
+```shell
+cryptroot      UUID=xxxxxxxxxxxxxxxxxxxxxx    none                    luks
+```
+## Update
+```shell
+mkinitcpio -p linux-lts
+grub-mkconfig -o /boot/grub/grub.cfg
+```

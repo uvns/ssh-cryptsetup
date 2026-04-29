@@ -1,3 +1,5 @@
+## The project is based on [archlinux-initrd-ssh-cryptsetup](https://github.com/suiryc/archlinux-initrd-ssh-cryptsetup) by suiryc.
+## Original repository :[https://github.com/suiryc/archlinux-initrd-ssh-cryptsetup](https://github.com/suiryc/archlinux-initrd-ssh-cryptsetup)
 Personal ArchLinux package combining dropbear and cryptsetup in initramfs for unlocking LUKS-encrypted devices either locally (boot console) or remotely over SSH.  
 The code was reworked from legacy dropbear_initrd_encrypt AUR package.
 
